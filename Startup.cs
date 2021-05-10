@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Projekt_RESTfulWebAPI
 {
@@ -32,7 +34,9 @@ namespace Projekt_RESTfulWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v1" });
             });
-        }
+
+            services.AddDbContext<Data.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionsString("DbContext")));
+        }   
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,6 +51,13 @@ namespace Projekt_RESTfulWebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
 
             app.UseAuthorization();
 
