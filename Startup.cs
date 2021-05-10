@@ -35,7 +35,7 @@ namespace Projekt_RESTfulWebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v1" });
             });
 
-            services.AddDbContext<Data.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionsString("DbContext")));
+            services.AddDbContext<Data.OurDbContext>(options => options.UseSqlServer(Configuration.GetConnectionsString("OurDbContext")));
         }   
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

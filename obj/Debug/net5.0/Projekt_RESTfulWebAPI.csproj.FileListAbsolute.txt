@@ -1,0 +1,7 @@
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.csprojAssemblyReference.cache
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.AssemblyInfoInputs.cache
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.AssemblyInfo.cs
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.csproj.CoreCompileInputs.cache
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Jens\Documents\Programmering\GitHub\Projekt_RESTfulWebAPI\Projekt_RESTfulWebAPI\obj\Debug\net5.0\Projekt_RESTfulWebAPI.MvcApplicationPartsAssemblyInfo.cache

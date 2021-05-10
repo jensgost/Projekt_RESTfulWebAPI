@@ -19,7 +19,7 @@ namespace Projekt_RESTfulWebAPI
             {
                 var provider = scope.ServiceProvider;
 
-                Data.DbContext.Reset(provider).Wait();
+                Data.OurDbContext.Reset(provider).Wait();
             }
 
             host.Run();
