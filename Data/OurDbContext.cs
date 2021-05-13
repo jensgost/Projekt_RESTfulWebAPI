@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Projekt_RESTfulWebAPI.Models;
 
 namespace Projekt_RESTfulWebAPI.Data
 {
-    public class OurDbContext :DbContext
+    public class OurDbContext : DbContext
     {
         public OurDbContext(DbContextOptions<OurDbContext> options)
             : base(options)

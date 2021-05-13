@@ -13,16 +13,7 @@ namespace Projekt_RESTfulWebAPI
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-
-            using (var scope = host.Services.CreateScope())
-            {
-                var provider = scope.ServiceProvider;
-
-                Data.OurDbContext.Reset(provider).Wait();
-            }
-
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

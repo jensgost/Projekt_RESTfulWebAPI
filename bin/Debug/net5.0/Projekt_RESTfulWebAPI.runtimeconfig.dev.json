@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Jens\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Jens\\.nuget\\packages"
+    ]
+  }
+}
