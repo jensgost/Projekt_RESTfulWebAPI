@@ -37,7 +37,7 @@ namespace Projekt_RESTfulWebAPI.Controllers
 
             var geoMessageDTO = new GeoMessageDTO
             {
-                Message = geoMessage.Body,
+                Message = geoMessage.Message,
                 Latitude = geoMessage.Latitude,
                 Longitude = geoMessage.Longitude
             };
@@ -52,7 +52,7 @@ namespace Projekt_RESTfulWebAPI.Controllers
                 .Select(g => 
                     new GeoMessageDTO
                     {
-                        Message = g.Body,
+                        Message = g.Message,
                         Latitude = g.Latitude,
                         Longitude = g.Longitude
                     }
@@ -72,8 +72,7 @@ namespace Projekt_RESTfulWebAPI.Controllers
             var user = await _userManager.GetUserAsync(this.User);
             var newGeoMessage = new GeoMessage
             {
-                Body = geoMessageDTO.Message,
-                Author = $"{user.FirstName} {user.LastName}",
+                Message = geoMessageDTO.Message,
                 Longitude = geoMessageDTO.Longitude,
                 Latitude = geoMessageDTO.Latitude
             };
@@ -83,12 +82,12 @@ namespace Projekt_RESTfulWebAPI.Controllers
 
             var getGeoMessage = new GeoMessageDTO
             {
-                Message = newGeoMessage.Body,
+                Message = newGeoMessage.Message,
                 Longitude = newGeoMessage.Longitude,
                 Latitude = newGeoMessage.Latitude
             };
 
-            return CreatedAtAction(nameof(GetGeoMessage) new { id = newGeoMessage.Id }, getGeoMessage);
+            return CreatedAtAction(nameof(GeoMessageDTO), new { id = newGeoMessage.Id }, getGeoMessage);
         }
 
         [Authorize]
