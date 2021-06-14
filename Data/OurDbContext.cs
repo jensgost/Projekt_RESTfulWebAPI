@@ -34,9 +34,18 @@ namespace Projekt_RESTfulWebAPI.Data
 
             var geoMessage = new GeoMessage
             {
-                Message = "Testing",
+                Message = "Message Test",
                 Longitude = 10.5,
                 Latitude = 5.10
+            };
+
+            var geoMessageV2 = new GeoMessage
+            {
+                Title = "Title Test",
+                Body = "Body Test",
+                Author = user.FirstName + " " + user.LastName,
+                Latitude = 51.0,
+                Longitude = 1.05
             };
 
             var apiToken = new ApiToken 

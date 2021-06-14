@@ -51,25 +51,36 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GeoMessageDTO>>> GetGeoMessages()
+        public async Task<ActionResult<IEnumerable<GetGeoMessageDTO>>> GetGeoMessagesQuery([FromQuery] double minLon, [FromQuery] double minLat, [FromQuery] double maxLon, [FromQuery] double maxLat)
         {
-            return await _context.GeoMessages
+            var geoMessages = await _context.GeoMessages
                 .Select(g =>
-                    new GeoMessageDTO
+                    new GetGeoMessageDTO
                     {
-                        Message = g.Message,
+                        Message = new GetGeoMessageDTO
+                        {
+                            Title = g.Title,
+                            Body = g.Body,
+                            Author = g.Author
+                        },
                         Latitude = g.Latitude,
                         Longitude = g.Longitude
                     }
                 )
                 .ToListAsync();
+
+            if (Request.Query.ContainsKey("minLon") && Request.Query.ContainsKey("minLat") && Request.Query.ContainsKey("maxLon") && Request.Query.ContainsKey("maxLat"))
+                geoMessages = geoMessages.Where(geoMessages =>
+                g.Longitude > minLon && g.Longitude < maxLon && g.Latitude > minLat && g.Latitude < maxLat).ToList();
+
+            return Ok(geoMessages);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<GeoMessageDTO>> CreateGeoMessage([FromQuery] Guid ApiKey, GeoMessageDTO geoMessageDTO)
+        public async Task<ActionResult<GetGeoMessageDTO>> CreateGeoMessage([FromQuery] Guid ApiKey, AddGeoMessageDTO addGeoMessage)
         {
-            if (geoMessageDTO == null)
+            if (addGeoMessage == null)
             {
                 return BadRequest();
             }
@@ -77,34 +88,29 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
             var user = await _userManager.GetUserAsync(this.User);
             var newGeoMessage = new GeoMessage
             {
-                Message = geoMessageDTO.Message,
-                Longitude = geoMessageDTO.Longitude,
-                Latitude = geoMessageDTO.Latitude
+                Title = addGeoMessage.Message.Title,
+                Body = addGeoMessage.Message.Body,
+                Author = $"{user.Firstname} {user.Lastname}",
+                Longitude = addGeoMessage.Longitude,
+                Latitude = addGeoMessage.Latitude
             };
 
             await _context.AddAsync(newGeoMessage);
             await _context.SaveChangesAsync();
 
-            var getGeoMessage = new GeoMessageDTO
+            var getGeoMessage = new GetGeoMessageDTO
             {
-                Message = newGeoMessage.Message,
+                Message = new GetGeoMessageDTO
+                {
+                    Title = newGeoMessage.Title,
+                    Body = newGeoMessage.Body,
+                    Author = newGeoMessage.Author
+                }
                 Longitude = newGeoMessage.Longitude,
                 Latitude = newGeoMessage.Latitude
             };
 
-            return CreatedAtAction(nameof(GeoMessageDTO), new { id = newGeoMessage.Id }, getGeoMessage);
-        }
-
-        [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<GeoMessage>> DeleteGeoMessage([FromQuery] Guid ApiKey, int id)
-        {
-            var geoMessage = await _context.GeoMessages.FirstOrDefaultAsync(g => g.Id == id);
-
-            _context.Remove(geoMessage);
-            await _context.SaveChangesAsync();
-
-            return Ok(geoMessage);
+            return CreatedAtAction(nameof(GetGeoMessage), new { id = newGeoMessage.Id }, getGeoMessage);
         }
     }
 }
