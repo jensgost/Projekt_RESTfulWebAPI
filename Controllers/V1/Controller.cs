@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Projekt_RESTfulWebAPI.DTO.V1;
 
-namespace Projekt_RESTfulWebAPI.Controllers
+namespace Projekt_RESTfulWebAPI.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/geo-comments")]
     [ApiController]
@@ -72,7 +72,8 @@ namespace Projekt_RESTfulWebAPI.Controllers
             var user = await _userManager.GetUserAsync(this.User);
             var newGeoMessage = new GeoMessage
             {
-                Message = geoMessageDTO.Message,
+                Body = geoMessageDTO.Message,
+                Author = $"{user.FirstName} {user.LastName}",
                 Longitude = geoMessageDTO.Longitude,
                 Latitude = geoMessageDTO.Latitude
             };
@@ -88,18 +89,6 @@ namespace Projekt_RESTfulWebAPI.Controllers
             };
 
             return CreatedAtAction(nameof(GeoMessageDTO), new { id = newGeoMessage.Id }, getGeoMessage);
-        }
-
-        [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<GeoMessage>> DeleteGeoMessage([FromQuery] Guid ApiKey, int id)
-        {
-            var geoMessage = await _context.GeoMessages.FirstOrDefaultAsync(g => g.Id == id);
-
-            _context.Remove(geoMessage);
-            await _context.SaveChangesAsync();
-
-            return Ok(geoMessage);
         }
     }
 }
