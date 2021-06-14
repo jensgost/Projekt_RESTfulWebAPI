@@ -39,13 +39,13 @@ namespace Projekt_RESTfulWebAPI.Data
                 Latitude = 5.10
             };
 
-            /*var token = new ApiToken
+            var apiToken = new ApiToken 
             {
-                Key = new Guid(),
+                Key = new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00"),
                 User = user
             };
 
-            await AddAsync(token);*/
+            await AddAsync(apiToken);
             await AddAsync(geoMessage);
             await SaveChangesAsync();
         }
