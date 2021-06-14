@@ -27,6 +27,7 @@ namespace Projekt_RESTfulWebAPI.Data
 
             var user = new User
             {
+                UserName = "Name",
                 FirstName = "Us",
                 LastName = "Er"
             };
@@ -56,9 +57,9 @@ namespace Projekt_RESTfulWebAPI.Data
 
             await AddAsync(apiToken);
             await AddAsync(geoMessage);
+            await AddAsync(geoMessageV2);
             await SaveChangesAsync();
         }
-
     }
  }
 

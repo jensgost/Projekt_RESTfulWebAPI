@@ -30,14 +30,14 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
         [HttpGet("{id}")]
         public async Task<ActionResult<GetGeoMessageDTO>> GetGeoMessage(int id)
         {
-            var geoMessage = await _context.GeoMessages.Include(g => g.Message).FirstOrDefaultAsync(g => g.Id == id);
+            var geoMessage = await _context.GeoMessages.FirstOrDefaultAsync(g => g.Id == id);
 
             if (geoMessage == null)
                 return NotFound();
 
             var geoMessageDTO = new GetGeoMessageDTO
             {
-                Message = new GetGeoMessageDTO
+                Message = new GetMessageDTO
                 {
                     Title = geoMessage.Title,
                     Body = geoMessage.Body,
@@ -57,7 +57,7 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
                 .Select(g =>
                     new GetGeoMessageDTO
                     {
-                        Message = new GetGeoMessageDTO
+                        Message = new GetMessageDTO
                         {
                             Title = g.Title,
                             Body = g.Body,
@@ -90,7 +90,7 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
             {
                 Title = addGeoMessage.Message.Title,
                 Body = addGeoMessage.Message.Body,
-                Author = $"{user.Firstname} {user.Lastname}",
+                Author = $"{user.FirstName} {user.LastName}",
                 Longitude = addGeoMessage.Longitude,
                 Latitude = addGeoMessage.Latitude
             };
@@ -100,12 +100,12 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
 
             var getGeoMessage = new GetGeoMessageDTO
             {
-                Message = new GetGeoMessageDTO
+                Message = new GetMessageDTO
                 {
                     Title = newGeoMessage.Title,
                     Body = newGeoMessage.Body,
                     Author = newGeoMessage.Author
-                }
+                },
                 Longitude = newGeoMessage.Longitude,
                 Latitude = newGeoMessage.Latitude
             };
