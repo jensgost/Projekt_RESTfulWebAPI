@@ -70,7 +70,7 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
                 .ToListAsync();
 
             if (Request.Query.ContainsKey("minLon") && Request.Query.ContainsKey("minLat") && Request.Query.ContainsKey("maxLon") && Request.Query.ContainsKey("maxLat"))
-                geoMessages = geoMessages.Where(geoMessages =>
+                geoMessages = geoMessages.Where(g =>
                 g.Longitude > minLon && g.Longitude < maxLon && g.Latitude > minLat && g.Latitude < maxLat).ToList();
 
             return Ok(geoMessages);

@@ -20,7 +20,7 @@ namespace Projekt_RESTfulWebAPI.DTO
     {
         public class GetGeoMessageDTO
         {
-            public GetGeoMessageDTO Message { get; set; }
+            public GetMessageDTO Message { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
         }
@@ -34,7 +34,7 @@ namespace Projekt_RESTfulWebAPI.DTO
 
         public class AddGeoMessageDTO
         {
-            public AddGeoMessageDTO Message { get; set; }
+            public AddMessageDTO Message { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
         }
