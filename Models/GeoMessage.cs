@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Projekt_RESTfulWebAPI
+namespace Projekt_RESTfulWebAPI.Models
 {
         public class GeoMessage
         {

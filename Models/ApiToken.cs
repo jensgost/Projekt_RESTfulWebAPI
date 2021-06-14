@@ -10,6 +10,6 @@ namespace Projekt_RESTfulWebAPI.Models
     {
         public int Id { get; set; }
         public IdentityUser User { get; set; }
-        public string Value { get; set; }
+        public Guid Key { get; set; }
     }
 }
