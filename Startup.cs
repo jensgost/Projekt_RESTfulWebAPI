@@ -13,6 +13,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Projekt_RESTfulWebAPI.ApiKey;
+using Projekt_RESTfulWebAPI.Data;
+using Projekt_RESTfulWebAPI.Models;
+using Microsoft.AspNetCore.Authentication;
+using System.IO;
 
 namespace Projekt_RESTfulWebAPI
 {
@@ -30,9 +35,27 @@ namespace Projekt_RESTfulWebAPI
         {
 
             services.AddControllers();
+
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(2, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v2" });
+
+                var docsPath = Path.Combine(AppContext.BaseDirectory, "Documentation.xml");
+                c.IncludeXmlComments(docsPath);
             });
 
             services.AddDbContext<Data.OurDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OurDbContext")));
@@ -45,7 +68,12 @@ namespace Projekt_RESTfulWebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Projekt_RESTfulWebAPI v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Projekt_RESTfulWebAPI v1");
+                    c.SwaggerEndpoint("/swagger/v2/swagger.json", "Projekt_RESTfulWebAPI v2");
+                });
+
             }
 
             app.UseHttpsRedirection();
