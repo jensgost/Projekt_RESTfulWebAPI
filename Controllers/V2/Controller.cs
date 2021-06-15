@@ -27,6 +27,15 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Hämtar specifikt Geo-Message via unikt ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <response code="200">Geo-Message found!</response>
+        /// <response code="404">Failed to find Geo-Message</response>
+        /// <returns>This returns a Geo-Message</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
         public async Task<ActionResult<GetGeoMessageDTO>> GetGeoMessage(int id)
         {
@@ -50,6 +59,18 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
             return Ok(geoMessageDTO);
         }
 
+        /// <summary>
+        /// Parametrarna möjliggör sökning av Geo-Message av särskilt område via uppgivna koordinater 
+        /// </summary>
+        /// <param name="minLon">Minimum Longitude</param>
+        /// <param name="minLat">Minimum Latitude</param>
+        /// <param name="maxLon">Maximum Longitude</param>
+        /// <param name="maxLat">Maximum Latitude</param>
+        /// <response code="200">Geo-Messages found!</response>
+        /// <response code="404">Failed to find Geo-Messages</response>
+        /// <returns>This returns all Geo-Messages within a certain area</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetGeoMessageDTO>>> GetGeoMessagesQuery([FromQuery] double minLon, [FromQuery] double minLat, [FromQuery] double maxLon, [FromQuery] double maxLat)
         {
@@ -76,6 +97,18 @@ namespace Projekt_RESTfulWebAPI.Controllers.V2
             return Ok(geoMessages);
         }
 
+        /// <summary>
+        /// Lägger till ett nytt Geo-Message om användaren är behörig
+        /// </summary>
+        /// <param name="addGeoMessage"></param>
+        /// <param name="ApiKey"></param>
+        /// <response code="201">Geo-Message created</response>
+        /// <response code="400">Failed to Create Geo-Message</response>
+        /// <response code="401">Failed to authorize</response>
+        /// <returns>A newly created Geo-Message</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<GetGeoMessageDTO>> CreateGeoMessage([FromQuery] Guid ApiKey, AddGeoMessageDTO addGeoMessage)
