@@ -53,9 +53,6 @@ namespace Projekt_RESTfulWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v1" });
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "Projekt_RESTfulWebAPI", Version = "v2" });
-
-                var docsPath = Path.Combine(AppContext.BaseDirectory, "Documentation.xml");
-                c.IncludeXmlComments(docsPath);
             });
 
             services.AddDbContext<Data.OurDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OurDbContext")));
